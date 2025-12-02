@@ -1,9 +1,20 @@
-.csv
-.keras
-.md
-.txt
-.json
-.pyc
-.log
-.claude
-.json
+# Data files
+**/*.csv
+
+# Model files
+**/*.keras
+
+# Logs
+**/*.log
+
+# Python cache
+**/*.pyc
+__pycache__/
+
+# Claude config
+.claude/
+**/.claude/
+
+# macOS
+.DS_Store
+**/.DS_Store
