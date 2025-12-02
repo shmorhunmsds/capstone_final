@@ -1,0 +1,178 @@
+======================================================================
+COX PH + MACHINE LEARNING HYBRID APPROACH
+======================================================================
+
+Loading data...
+Loading data...
+PlayList shape: (267005, 15)
+InjuryRecord shape: (104, 9)
+Loading PlayerTrackData...
+PlayerTrackData shape: (25010207, 20)
+Correction factor: 5.784
+
+======================================================================
+PREPARING SURVIVAL ANALYSIS DATASET
+======================================================================
+Injury events: 104
+Censored (non-injury) samples: 312
+Total samples: 416
+
+======================================================================
+ENGINEERING FEATURES FOR SURVIVAL ANALYSIS
+======================================================================
+Engineered features shape: (416, 38)
+
+======================================================================
+STAGE 1: XGBoost Feature Learning
+======================================================================
+Feature matrix: (416, 32)
+Events: 104.0, Censored: 312.0
+
+Top 15 Most Important Features:
+       feature  importance
+         s_std    0.054868
+       sx_mean    0.047810
+  s_<lambda_0>    0.043481
+    a_fwd_mean    0.042419
+      speed_cv    0.040516
+        sx_max    0.038870
+  a_<lambda_1>    0.038460
+        sy_max    0.038058
+  a_<lambda_0>    0.037255
+        s_mean    0.035055
+ lateral_ratio    0.032570
+     a_fwd_std    0.032183
+FieldSynthetic    0.031489
+         a_max    0.031455
+   speed_range    0.031449
+
+XGBoost Performance:
+  ROC-AUC: 0.6511
+  PR-AUC: 0.3716
+
+Selected top 10 features for Cox PH:
+  1. s_std
+  2. speed_range
+  3. sy_max
+  4. sx_mean
+  5. speed_cv
+  6. s_<lambda_0>
+  7. sx_max
+  8. sx_std
+  9. a_<lambda_1>
+  10. s_min
+
+======================================================================
+STAGE 2: Cox Proportional Hazards Survival Model
+======================================================================
+
+Cox PH dataset shape: (416, 11)
+Features: ['field_synthetic', 'xgb_risk_score', 'feat_1', 'feat_2', 'feat_3', 'feat_4', 'feat_5']
+
+======================================================================
+FOLD 1/5
+======================================================================
+Train: 332 samples, 76.0 events
+Val: 84 samples, 28.0 events
+
+Fold 1 Results:
+  C-index (concordance): 0.6207
+  Hazard Ratio - Synthetic Field: 1.002
+  Hazard Ratio - XGB Risk Score: 1.005
+
+                     coef  exp(coef)         p
+covariate                                     
+field_synthetic  0.002162   1.002164  0.985322
+xgb_risk_score   0.005003   1.005015  0.968205
+feat_1           0.691163   1.996035  0.000016
+feat_2          -0.178564   0.836471  0.185952
+feat_3          -0.019986   0.980213  0.882804
+feat_4           0.133195   1.142472  0.188321
+feat_5           0.379233   1.461164  0.001341
+
+======================================================================
+FOLD 2/5
+======================================================================
+Train: 333 samples, 84.0 events
+Val: 83 samples, 20.0 events
+
+Fold 2 Results:
+  C-index (concordance): 0.6681
+  Hazard Ratio - Synthetic Field: 1.013
+  Hazard Ratio - XGB Risk Score: 1.083
+
+======================================================================
+FOLD 3/5
+======================================================================
+Train: 333 samples, 84.0 events
+Val: 83 samples, 20.0 events
+
+Fold 3 Results:
+  C-index (concordance): 0.5834
+  Hazard Ratio - Synthetic Field: 0.975
+  Hazard Ratio - XGB Risk Score: 1.086
+
+======================================================================
+FOLD 4/5
+======================================================================
+Train: 333 samples, 83.0 events
+Val: 83 samples, 21.0 events
+
+Fold 4 Results:
+  C-index (concordance): 0.7239
+  Hazard Ratio - Synthetic Field: 0.913
+  Hazard Ratio - XGB Risk Score: 1.107
+
+======================================================================
+FOLD 5/5
+======================================================================
+Train: 333 samples, 89.0 events
+Val: 83 samples, 15.0 events
+
+Fold 5 Results:
+  C-index (concordance): 0.8221
+  Hazard Ratio - Synthetic Field: 0.962
+  Hazard Ratio - XGB Risk Score: 1.067
+
+======================================================================
+COX PH OVERALL RESULTS
+======================================================================
+
+Cross-Validation Metrics:
+  C-Index: 0.6836 ± 0.0936
+  Hazard Ratio (Synthetic Field): 0.973 ± 0.039
+  Hazard Ratio (XGB Risk): 1.070 ± 0.039
+
+======================================================================
+INTERPRETATION
+======================================================================
+
+🏈 Synthetic turf DECREASES injury hazard by 2.7%
+   (Hazard Ratio: 0.97)
+
+This means: For any given play, a player on synthetic turf has
+0.97x the instantaneous risk of injury compared to natural grass,
+after adjusting for movement patterns and other factors.
+
+======================================================================
+GENERATING SURVIVAL CURVES
+======================================================================
+
+Survival curves saved to: cox_survival_curves.png
+
+======================================================================
+COX PH + ML HYBRID ANALYSIS COMPLETE!
+======================================================================
+
+Key Outputs:
+  1. XGBoost feature importance ranking
+  2. Cox PH hazard ratios (interpretable effect sizes)
+  3. Survival curves visualization
+  4. C-index (discrimination metric for survival models)
+
+Advantages of this approach:
+  ✓ Properly handles censoring
+  ✓ Models time-to-event
+  ✓ Interpretable hazard ratios
+  ✓ ML feature learning + statistical rigor
+

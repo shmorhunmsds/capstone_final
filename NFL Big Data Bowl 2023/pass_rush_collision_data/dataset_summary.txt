@@ -1,0 +1,32 @@
+======================================================================
+PASS RUSH COLLISION DATASET SUMMARY
+======================================================================
+
+Generated: 2025-10-12 11:49:54.377789
+Processing time: 0:03:36.823011
+
+Total samples: 36,362
+Total features: 46
+Weeks processed: 8
+
+Target Variable Distribution:
+  Pressure events: 4,232 (11.64%)
+  No pressure: 32,130 (88.36%)
+
+Pressure Type Breakdown:
+  Hits: 823
+  Hurries: 2,824
+  Sacks: 585
+
+Feature Categories:
+  - Distance features: 4
+  - Speed features: 6
+  - Acceleration features: 6
+  - Relative motion: 3
+  - Orientation: 4
+  - Temporal: 3
+  - Collision intensity: 3
+  - Play context: 6
+  - Metadata: 10
+
+Top Features by Correlation with Pressure:

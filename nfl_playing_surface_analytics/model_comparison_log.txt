@@ -1,0 +1,411 @@
+Collecting xgboost
+  Downloading xgboost-3.0.5-py3-none-manylinux_2_28_x86_64.whl.metadata (2.1 kB)
+Requirement already satisfied: numpy in /home/pshmo/miniconda3/envs/tf-gpu/lib/python3.11/site-packages (from xgboost) (1.26.4)
+Requirement already satisfied: nvidia-nccl-cu12 in /home/pshmo/miniconda3/envs/tf-gpu/lib/python3.11/site-packages (from xgboost) (2.16.5)
+Requirement already satisfied: scipy in /home/pshmo/miniconda3/envs/tf-gpu/lib/python3.11/site-packages (from xgboost) (1.16.2)
+Downloading xgboost-3.0.5-py3-none-manylinux_2_28_x86_64.whl (94.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.9/94.9 MB 70.6 MB/s  0:00:01
+Installing collected packages: xgboost
+Successfully installed xgboost-3.0.5
+======================================================================
+NFL INJURY PREDICTION - MODEL COMPARISON
+======================================================================
+
+Loading data...
+Loading data...
+PlayList shape: (267005, 15)
+InjuryRecord shape: (104, 9)
+Loading PlayerTrackData...
+PlayerTrackData shape: (25010207, 20)
+Correction factor: 5.784
+
+======================================================================
+PREPARING PLAYER-PLAY DATASET
+======================================================================
+Injury player-plays: 104
+Non-injury player-plays sampled: 312
+Ratio: 1:3
+Total tracking observations: 38425
+
+======================================================================
+ENGINEERING FEATURES FROM MOVEMENT DATA
+======================================================================
+Engineered features shape: (416, 39)
+Number of features: 37
+Final features shape: (416, 46)
+
+XGBoost not installed. Installing...
+
+======================================================================
+OPTION 1: XGBoost with Engineered Features
+======================================================================
+
+Feature matrix shape: (416, 40)
+Target distribution: Injury=104.0, No Injury=312.0
+
+======================================================================
+FOLD 1/5
+======================================================================
+Train: 332 samples (Injury: 76.0)
+Val: 84 samples (Injury: 28.0)
+
+Fold 1 Results:
+  Accuracy: 0.6071
+  ROC-AUC: 0.5816
+  PR-AUC: 0.4112
+  Precision: 0.3810
+  Recall: 0.2857
+  F1: 0.3265
+
+Top 10 Most Important Features:
+       feature  importance
+        sx_max    0.047984
+  s_<lambda_0>    0.047417
+         s_std    0.046284
+  a_<lambda_0>    0.039252
+       sx_mean    0.036987
+     a_sid_std    0.035576
+   speed_range    0.031300
+FieldSynthetic    0.029855
+  s_<lambda_1>    0.029599
+        sy_max    0.028822
+
+======================================================================
+FOLD 2/5
+======================================================================
+Train: 333 samples (Injury: 84.0)
+Val: 83 samples (Injury: 20.0)
+
+Fold 2 Results:
+  Accuracy: 0.7108
+  ROC-AUC: 0.7540
+  PR-AUC: 0.5949
+  Precision: 0.4286
+  Recall: 0.6000
+  F1: 0.5000
+
+======================================================================
+FOLD 3/5
+======================================================================
+Train: 333 samples (Injury: 84.0)
+Val: 83 samples (Injury: 20.0)
+
+Fold 3 Results:
+  Accuracy: 0.6145
+  ROC-AUC: 0.5889
+  PR-AUC: 0.3205
+  Precision: 0.2857
+  Recall: 0.4000
+  F1: 0.3333
+
+======================================================================
+FOLD 4/5
+======================================================================
+Train: 333 samples (Injury: 83.0)
+Val: 83 samples (Injury: 21.0)
+
+Fold 4 Results:
+  Accuracy: 0.7229
+  ROC-AUC: 0.6490
+  PR-AUC: 0.4616
+  Precision: 0.4375
+  Recall: 0.3333
+  F1: 0.3784
+
+======================================================================
+FOLD 5/5
+======================================================================
+Train: 333 samples (Injury: 89.0)
+Val: 83 samples (Injury: 15.0)
+
+Fold 5 Results:
+  Accuracy: 0.7470
+  ROC-AUC: 0.7294
+  PR-AUC: 0.4455
+  Precision: 0.3636
+  Recall: 0.5333
+  F1: 0.4324
+
+======================================================================
+XGBoost Overall Results
+======================================================================
+
+Cross-Validation Metrics:
+  ACCURACY    : 0.6805 ± 0.0650
+  AUC         : 0.6606 ± 0.0790
+  PR_AUC      : 0.4467 ± 0.0992
+  PRECISION   : 0.3793 ± 0.0609
+  RECALL      : 0.4305 ± 0.1329
+  F1          : 0.3941 ± 0.0728
+
+======================================================================
+OPTION 3: Simple Dense Network on Flattened Sequences
+======================================================================
+
+Preparing sequences...
+Input shape: (416, 123)
+Features: 120 movement + 3 static = 123 total
+
+======================================================================
+FOLD 1/5
+======================================================================
+Train: 332 (Injury: 76.0)
+Val: 84 (Injury: 28.0)
+
+Fold 1 Results:
+  Accuracy: 0.5119
+  ROC-AUC: 0.4828
+  PR-AUC: 0.3192
+  Precision: 0.3030
+  Recall: 0.3571
+  F1: 0.3279
+
+======================================================================
+FOLD 2/5
+======================================================================
+Train: 333 (Injury: 84.0)
+Val: 83 (Injury: 20.0)
+
+Fold 2 Results:
+  Accuracy: 0.4458
+  ROC-AUC: 0.5008
+  PR-AUC: 0.3246
+  Precision: 0.2174
+  Recall: 0.5000
+  F1: 0.3030
+
+======================================================================
+FOLD 3/5
+======================================================================
+Train: 333 (Injury: 84.0)
+Val: 83 (Injury: 20.0)
+
+Fold 3 Results:
+  Accuracy: 0.4578
+  ROC-AUC: 0.4048
+  PR-AUC: 0.2002
+  Precision: 0.1429
+  Recall: 0.2500
+  F1: 0.1818
+
+======================================================================
+FOLD 4/5
+======================================================================
+Train: 333 (Injury: 83.0)
+Val: 83 (Injury: 21.0)
+
+Fold 4 Results:
+  Accuracy: 0.5542
+  ROC-AUC: 0.5115
+  PR-AUC: 0.2691
+  Precision: 0.2647
+  Recall: 0.4286
+  F1: 0.3273
+
+======================================================================
+FOLD 5/5
+======================================================================
+Train: 333 (Injury: 89.0)
+Val: 83 (Injury: 15.0)
+
+Fold 5 Results:
+  Accuracy: 0.5783
+  ROC-AUC: 0.6275
+  PR-AUC: 0.4669
+  Precision: 0.2368
+  Recall: 0.6000
+  F1: 0.3396
+
+======================================================================
+Simple Dense Network Overall Results
+======================================================================
+
+Cross-Validation Metrics:
+  ACCURACY    : 0.5096 ± 0.0580
+  AUC         : 0.5055 ± 0.0800
+  PR_AUC      : 0.3160 ± 0.0981
+  PRECISION   : 0.2330 ± 0.0598
+  RECALL      : 0.4271 ± 0.1337
+  F1          : 0.2959 ± 0.0652
+
+======================================================================
+OPTION 4: Cox Proportional Hazards + Machine Learning
+======================================================================
+
+
+Cox Proportional Hazards (Cox PH) is a SURVIVAL ANALYSIS model, not traditional ML.
+However, you CAN combine Cox PH with ML in several ways:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+APPROACH 1: Cox PH with ML-Engineered Features
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use ML (Random Forest, autoencoders) to create features, then feed to Cox PH:
+
+    from lifelines import CoxPHFitter
+    from sklearn.ensemble import RandomForestRegressor
+
+    # Step 1: Use RF to create learned features
+    rf = RandomForestRegressor(n_estimators=100)
+    rf.fit(X_movement, y_dummy)  # Unsupervised or weakly supervised
+
+    learned_features = rf.apply(X_movement)  # Leaf indices as features
+
+    # Step 2: Combine with static features
+    cox_features = pd.concat([
+        pd.DataFrame(learned_features),
+        df[['FieldSynthetic', 'PlayerGamePlay']]
+    ], axis=1)
+
+    # Step 3: Fit Cox PH
+    cph = CoxPHFitter()
+    cph.fit(cox_features, duration_col='PlayerGamePlay', event_col='DM_M1')
+
+    # Advantages:
+    - Properly handles censoring (players who don't get injured)
+    - Naturally models time-to-event
+    - Interpretable hazard ratios
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+APPROACH 2: DeepSurv (Deep Learning + Cox PH)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use neural networks to learn features, optimize Cox partial likelihood:
+
+    from pycox.models import CoxPH
+    import torchtuples as tt
+
+    # Neural network for feature learning
+    net = tt.practical.MLPVanilla(
+        in_features=X.shape[1],
+        num_nodes=[128, 64],
+        out_features=1,  # Outputs log-hazard
+        batch_norm=True,
+        dropout=0.3
+    )
+
+    # DeepSurv model (Cox PH loss with neural net)
+    model = CoxPH(net, tt.optim.Adam)
+
+    # Train with Cox partial likelihood loss
+    model.fit(X_train, (durations_train, events_train),
+              epochs=100, batch_size=64)
+
+    # Predict hazards
+    hazards = model.predict_surv_df(X_test)
+
+    # Advantages:
+    - Learns complex non-linear relationships
+    - Still outputs interpretable survival curves
+    - Handles censoring properly
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+APPROACH 3: Two-Stage Model (Classification → Survival)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Stage 1: ML classifier predicts injury risk
+Stage 2: Cox PH refines timing
+
+    # Stage 1: XGBoost predicts "will player get injured in next N plays?"
+    xgb_model.fit(X_train, y_train)
+    injury_risk_score = xgb_model.predict_proba(X)[:, 1]
+
+    # Stage 2: Cox PH models WHEN injury occurs given risk score
+    cox_data = df[['PlayerGamePlay', 'DM_M1', 'FieldSynthetic']].copy()
+    cox_data['ML_RiskScore'] = injury_risk_score
+
+    cph = CoxPHFitter()
+    cph.fit(cox_data, duration_col='PlayerGamePlay', event_col='DM_M1')
+
+    # Advantages:
+    - Combines strengths of both approaches
+    - ML captures complex patterns
+    - Cox PH handles time-to-event properly
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHY COX PH FOR THIS PROBLEM?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. HANDLES CENSORING:
+   - Most players DON'T get injured (censored observations)
+   - Standard ML treats "no injury" = "will never get injured" (wrong!)
+   - Cox PH treats it as "hasn't gotten injured YET" (correct!)
+
+2. TIME-TO-EVENT MODELING:
+   - Natural fit: "How many plays until injury?"
+   - Accounts for cumulative exposure (PlayerGamePlay)
+   - Can incorporate time-varying covariates
+
+3. INTERPRETABLE HAZARD RATIOS:
+   - "Synthetic turf increases injury hazard by 1.66x"
+   - Directly answers research question
+   - Publishable, clinically meaningful
+
+4. BETTER FOR RARE EVENTS:
+   - Designed for low event rates (104 injuries)
+   - More statistical power than binary classification
+   - Proper uncertainty quantification
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOMMENDED HYBRID APPROACH FOR YOUR DATA:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    1. Engineer movement features (max_speed, accel_bursts, cutting_events)
+    2. Use XGBoost to select most important features
+    3. Feed selected features to Cox PH for final model
+    4. Compare hazards: Synthetic vs. Natural grass
+
+This gives you:
+✓ ML's pattern recognition power
+✓ Cox PH's proper survival modeling
+✓ Interpretable hazard ratios for publication
+✓ Handles censoring and time-to-event correctly
+
+Would you like me to implement this hybrid approach?
+
+
+======================================================================
+MODEL COMPARISON SUMMARY
+======================================================================
+
+               Model   PR-AUC  ROC-AUC       F1  Precision   Recall
+             XGBoost 0.446725 0.660581 0.394135   0.379275 0.430476
+Simple Dense Network 0.316007 0.505462 0.295923   0.232965 0.427143
+
+🏆 Best Model: XGBoost (Highest PR-AUC)
+
+======================================================================
+RECOMMENDATIONS:
+======================================================================
+
+    1. XGBoost likely performs best for this small dataset
+    2. Consider Cox PH + ML hybrid for publication-quality analysis
+    3. Deep learning needs 10-100x more data to be effective
+    4. Feature engineering is more important than model complexity here
+    
+2025-10-06 21:08:05.128584: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-06 21:08:05.142087: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-10-06 21:08:05.142110: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-10-06 21:08:05.142835: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-10-06 21:08:05.146005: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-10-06 21:08:05.541826: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-10-06 21:08:05.838787: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.862103: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.863298: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.865376: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.866542: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.867626: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.872469: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.873650: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.874732: I external/local_xla/xla/stream_executor/cuda/cuda_executor.cc:901] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero. See more at https://github.com/torvalds/linux/blob/v6.0/Documentation/ABI/testing/sysfs-bus-pci#L344-L355
+2025-10-06 21:08:05.875981: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 21042 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 4090, pci bus id: 0000:01:00.0, compute capability: 8.9
+2025-10-06 21:08:07.236158: I external/local_xla/xla/service/service.cc:168] XLA service 0x738a9504c460 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2025-10-06 21:08:07.236178: I external/local_xla/xla/service/service.cc:176]   StreamExecutor device (0): NVIDIA GeForce RTX 4090, Compute Capability 8.9
+2025-10-06 21:08:07.238775: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+2025-10-06 21:08:07.260486: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8902
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1759799287.290189   68236 device_compiler.h:186] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+WARNING:tensorflow:5 out of the last 13 calls to <function Model.make_predict_function.<locals>.predict_function at 0x738d181d4a40> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+
+

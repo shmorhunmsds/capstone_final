@@ -1,0 +1,129 @@
+Loading data...
+Loading data...
+PlayList shape: (267005, 15)
+InjuryRecord shape: (104, 9)
+Loading PlayerTrackData...
+PlayerTrackData shape: (25010207, 20)
+Correction factor: 5.784
+Merging datasets...
+Engineering features...
+
+Analyzing 7 position groups with sufficient sample size:
+  Linebacker: 50125 samples, 23 injuries
+  Offensive Lineman: 47409 samples, 7 injuries
+  Wide Receiver: 43386 samples, 23 injuries
+  Safety: 39384 samples, 15 injuries
+  Defensive Lineman: 30586 samples, 9 injuries
+  Cornerback: 28984 samples, 12 injuries
+  Running Back: 11659 samples, 9 injuries
+
+============================================================
+Position: Linebacker
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.006 (95% CI: 0.845 - 1.199)
+  p-value = 0.9433
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.006 (95% CI: 0.845 - 1.199)
+  p-value = 0.9443
+
+============================================================
+Position: Offensive Lineman
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.002 (95% CI: 0.835 - 1.204)
+  p-value = 0.9798
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.002 (95% CI: 0.835 - 1.204)
+  p-value = 0.9797
+
+============================================================
+Position: Wide Receiver
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.025 (95% CI: 0.852 - 1.232)
+  p-value = 0.7967
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.024 (95% CI: 0.852 - 1.232)
+  p-value = 0.7977
+
+============================================================
+Position: Safety
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.009 (95% CI: 0.829 - 1.229)
+  p-value = 0.9287
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.009 (95% CI: 0.829 - 1.229)
+  p-value = 0.9289
+
+============================================================
+Position: Defensive Lineman
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.019 (95% CI: 0.815 - 1.275)
+  p-value = 0.8669
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.019 (95% CI: 0.815 - 1.275)
+  p-value = 0.8669
+
+============================================================
+Position: Cornerback
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.065 (95% CI: 0.847 - 1.338)
+  p-value = 0.5908
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.065 (95% CI: 0.847 - 1.338)
+  p-value = 0.5916
+
+============================================================
+Position: Running Back
+============================================================
+
+Simple Model (Field Type Only):
+  HR = 1.041 (95% CI: 0.731 - 1.482)
+  p-value = 0.8244
+
+Adjusted Model (Field Type + Movement):
+  HR = 1.041 (95% CI: 0.731 - 1.482)
+  p-value = 0.8251
+
+================================================================================
+SUMMARY TABLE
+================================================================================
+         Position  N_Samples  N_Injuries  HR_Simple  HR_Simple_Lower  HR_Simple_Upper  P_Simple  HR_Adjusted  HR_Adjusted_Lower  HR_Adjusted_Upper  P_Adjusted
+       Cornerback      28984          12   1.064687         0.847219         1.337975  0.590786     1.064548           0.847108           1.337801    0.591560
+     Running Back      11659           9   1.040860         0.730789         1.482493  0.824369     1.040675           0.730660           1.482228    0.825134
+    Wide Receiver      43386          23   1.024525         0.852020         1.231956  0.796745     1.024410           0.851925           1.231819    0.797662
+Defensive Lineman      30586           9   1.019329         0.814792         1.275212  0.866945     1.019340           0.814800           1.275224    0.866876
+           Safety      39384          15   1.009027         0.828704         1.228588  0.928713     1.009001           0.828683           1.228556    0.928915
+       Linebacker      50125          23   1.006376         0.844748         1.198928  0.943280     1.006261           0.844653           1.198790    0.944290
+Offensive Lineman      47409           7   1.002367         0.834528         1.203961  0.979828     1.002380           0.834539           1.203978    0.979712
+
+Results saved to: position_cox_results.csv
+Forest plot saved to: position_cox_forest_plot.png
+
+================================================================================
+INTERPRETATION
+================================================================================
+
+Key Findings:
+1. Simple Model shows which positions have higher injury risk on synthetic turf
+2. Adjusted Model shows if this is due to field type or movement patterns
+3. Large difference between Simple and Adjusted = confounding by movement
+4. HR > 1.0 = Increased risk on synthetic, HR < 1.0 = Decreased risk
+5. Red points = statistically significant (p < 0.05)
+
